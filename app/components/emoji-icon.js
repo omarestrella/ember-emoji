@@ -1,0 +1,1 @@
+export { default } from 'ember-emoji-one/components/emoji-icon/component';

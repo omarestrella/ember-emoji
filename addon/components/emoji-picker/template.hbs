@@ -1,0 +1,7 @@
+<div class="emoji-category-selector">
+    {{#each service.categories as |category|}}
+        {{#category-icon category=category as |emoji|}}
+            {{emoji-icon emoji=emoji select="selectCategory"}}
+        {{/category-icon}}
+    {{/each}}
+</div>
