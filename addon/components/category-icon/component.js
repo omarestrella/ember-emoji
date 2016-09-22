@@ -23,6 +23,10 @@ export default Component.extend({
         assert('You must provide a category', this.get('category') !== null);
     },
 
+    click() {
+        this.sendAction('action');
+    },
+
     emoji: computed('category', function () {
         return this.get('service').iconForCategory(this.get('category'));
     }),

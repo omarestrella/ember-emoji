@@ -11,5 +11,18 @@ export default Component.extend({
     layout,
     classNames: ['emoji-picker'],
 
-    service: inject.service('emoji')
+    service: inject.service('emoji'),
+
+    activeCategory: null,
+
+    actions: {
+        selectCategory(category) {
+            this.set('activeCategory', category);
+        }
+    },
+
+    init() {
+        this._super(...arguments);
+        this.set('activeCategory', this.get('service.categories.firstObject'));
+    }
 });

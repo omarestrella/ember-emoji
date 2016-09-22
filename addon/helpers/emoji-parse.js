@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
 const {
-    Helper
+    Helper,
+    String: Str
 } = Ember;
 
 export default Helper.extend({
     compute([input]) {
-        return window.emojione.toImage(input);
+        return Str.htmlSafe(window.emojione.toImage(input));
     }
 });

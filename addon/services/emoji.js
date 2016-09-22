@@ -4,8 +4,11 @@ import Emoji from 'ember-emoji-one/emojione/emoji';
 const {
     get,
     computed,
+    A,
     Service
 } = Ember;
+
+const CACHE = {};
 
 const ORDER = [
     'people',
@@ -43,9 +46,9 @@ export default Service.extend({
 
     categories: computed(function () {
         const categories = [];
-        for (let key of Object.keys(Emoji)) {
-            if (Emoji.hasOwnProperty(key)) {
-                const emoji = Emoji[key];
+        for (let key of Object.keys(this.__emoji)) {
+            if (this.__emoji.hasOwnProperty(key)) {
+                const emoji = this.__emoji[key];
                 const { category } = emoji;
 
                 if (category && categories.indexOf(category) === -1 && DISABLED.indexOf(category) === -1) {
@@ -53,10 +56,30 @@ export default Service.extend({
                 }
             }
         }
-        return categories.sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b));
+        return A(categories.sort((a, b) => ORDER.indexOf(a) - ORDER.indexOf(b)));
     }),
 
     iconForCategory(category) {
         return get(CATEGORY_ICONS, category);
+    },
+
+    emojiForCategory(category) {
+        const cached = CACHE[category];
+        if (cached) {
+            return cached;
+        }
+
+        CACHE[category] = [];
+
+        for (let key of Object.keys(this.__emoji)) {
+            if (this.__emoji.hasOwnProperty(key)) {
+                const emoji = this.__emoji[key];
+                if (emoji.category === category) {
+                    CACHE[category].push(emoji.shortname);
+                }
+            }
+        }
+
+        return A(CACHE[category]);
     }
 });
