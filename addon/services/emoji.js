@@ -32,7 +32,7 @@ const CATEGORY_ICONS = {
     nature: ':dog:',
     food: ':apple:',
     activity: ':soccer:',
-    travel: ':automobile:',
+    travel: ':motorcycle:',
     objects: ':desktop:',
     symbols: ':ok:',
     flags: ':flag_us:',

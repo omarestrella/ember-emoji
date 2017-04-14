@@ -8,7 +8,7 @@ const {
 export default Component.extend({
     tagName: 'img',
     classNames: ['emoji-icon'],
-    attributeBindings: ['src'],
+    attributeBindings: ['src', 'emoji:data-emoji-code'],
 
     emoji: null,
 

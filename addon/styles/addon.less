@@ -1,0 +1,21 @@
+.ember-emoji-one {
+    div {
+        box-sizing: border-box;
+    }
+
+    .emoji-icon-container {
+        width: 24px;
+        height: 24px;
+    }
+
+    .clickable {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    @import 'addon/components/emoji-icon/style';
+    @import 'addon/components/emoji-grid/style';
+    @import 'addon/components/emoji-picker/style';
+    @import 'addon/components/category-icon/style';
+}

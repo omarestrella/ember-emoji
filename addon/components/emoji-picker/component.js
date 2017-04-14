@@ -9,7 +9,7 @@ const {
 
 export default Component.extend({
     layout,
-    classNames: ['emoji-picker'],
+    classNames: ['emoji-picker', 'ember-emoji-one'],
 
     service: inject.service('emoji'),
 

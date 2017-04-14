@@ -11,12 +11,13 @@ const {
 export default Component.extend({
     layout,
     tagName: 'span',
-    classNames: ['emoji-category-icon'],
-    classNameBindings: ['_categoryClass'],
+    classNames: ['category-icon', 'emoji-icon-container', 'clickable'],
+    classNameBindings: ['_categoryClass', 'isActive'],
 
     service: inject.service('emoji'),
 
     category: null,
+    activeCategory: null,
 
     didInsertElement() {
         this._super(...arguments);
@@ -31,7 +32,11 @@ export default Component.extend({
         return this.get('service').iconForCategory(this.get('category'));
     }),
 
-    _category: computed('category', function () {
+    isActive: computed('category', 'activeCategory', function () {
+        return this.get('category') === this.get('activeCategory');
+    }),
+
+    _categoryClass: computed('category', function () {
         return `${this.get('category')}-emoji`;
     })
 });
