@@ -14,10 +14,15 @@ export default Component.extend({
     service: inject.service('emoji'),
 
     activeCategory: null,
+    selectEmoji: () => {},
 
     actions: {
         selectCategory(category) {
             this.set('activeCategory', category);
+        },
+
+        selectEmoji(emoji) {
+            this.get('selectEmoji')(emoji);
         }
     },
 

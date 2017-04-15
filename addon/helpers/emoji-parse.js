@@ -7,6 +7,10 @@ const {
 
 export default Helper.extend({
     compute([input]) {
+        if (!input) {
+            return '';
+        }
+
         return Str.htmlSafe(window.emojione.toImage(input));
     }
 });

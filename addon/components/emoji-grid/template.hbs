@@ -1,5 +1,5 @@
 {{#each emojis as |emoji|}}
-    <span class="emoji emoji-icon-container">
+    <span class="emoji emoji-icon-container clickable" {{action "selectEmoji" emoji}}>
         {{emoji-icon emoji=emoji}}
     </span>
 {{/each}}

@@ -1,9 +1,11 @@
 <div class="emoji-category-selector">
     {{#each service.categories as |category|}}
-        {{#category-icon category=category activeCategory=activeCategory action=(action "selectCategory" category) as |emoji|}}
+        {{#category-icon category=category activeCategory=activeCategory
+          action=(action "selectCategory" category)
+          as |emoji|}}
             {{emoji-icon emoji=emoji}}
         {{/category-icon}}
     {{/each}}
 </div>
 
-{{emoji-grid category=activeCategory}}
+{{emoji-grid category=activeCategory selectEmoji=(action "selectEmoji")}}

@@ -15,6 +15,13 @@ export default Component.extend({
     service: inject.service('emoji'),
 
     category: null,
+    selectEmoji: () => {},
+
+    actions: {
+        selectEmoji(emoji) {
+            this.get('selectEmoji')(emoji);
+        }
+    },
 
     emojis: computed('category', function () {
         return this.get('service').emojiForCategory(this.get('category'));
