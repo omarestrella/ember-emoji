@@ -11,7 +11,7 @@
 
     .emoji-category-selector {
         height: @category-height;
-        margin-bottom: @category-margin;
+        // margin-bottom: @category-margin;
 
         padding: @padding;
 
@@ -29,7 +29,7 @@
     }
 
     .emoji-grid {
-        @offset: @category-height + @category-margin;
+        @offset: @category-height + @category-margin*2;
 
         height: ~"calc(100% - @{offset})";
         overflow: auto;

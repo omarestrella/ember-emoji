@@ -10,7 +10,6 @@ const {
 
 export default Component.extend({
     layout,
-    tagName: 'span',
     classNames: ['category-icon', 'emoji-icon-container', 'clickable'],
     classNameBindings: ['_categoryClass', 'isActive'],
 
