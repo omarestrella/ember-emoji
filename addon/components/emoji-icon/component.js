@@ -3,7 +3,6 @@ import Ember from 'ember';
 import layout from './template';
 
 const {
-    computed,
     Component
 } = Ember;
 
