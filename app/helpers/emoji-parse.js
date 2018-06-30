@@ -1,1 +1,1 @@
-export { default } from 'ember-emoji-one/helpers/emoji-parse';
+export { default } from 'ember-emoji/helpers/emoji-parse';

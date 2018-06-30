@@ -5,7 +5,7 @@ import layout from './template';
 
 export default Component.extend({
     layout,
-    classNames: ['emoji-picker', 'ember-emoji-one'],
+    classNames: ['emoji-picker', 'ember-emoji'],
 
     service: service('emoji'),
 

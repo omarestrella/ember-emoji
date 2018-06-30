@@ -1,7 +1,7 @@
-ember-emoji-one
+ember-emoji
 ==============================================================================
 
-The goal of ember-emoji-one is to provide applications with a complete set of
+The goal of ember-emoji is to provide applications with a complete set of
 components & helpers to include emojis in their project, courtesy of
 (EmojiOne)[https://emojione.com].
 
@@ -21,7 +21,7 @@ Installation
 Run the following command:
 
 ```bash
-$ ember install ember-emoji-one
+$ ember install ember-emoji
 ```
 
 And thats it!

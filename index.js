@@ -8,7 +8,7 @@ const funnel = require('broccoli-funnel');
 const esTranspiler = require('broccoli-babel-transpiler');
 
 module.exports = {
-    name: 'ember-emoji-one',
+    name: 'ember-emoji',
 
     isDevelopingAddon() {
         return true;

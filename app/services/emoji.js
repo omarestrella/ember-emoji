@@ -1,1 +1,1 @@
-export { default } from 'ember-emoji-one/services/emoji';
+export { default } from 'ember-emoji/services/emoji';

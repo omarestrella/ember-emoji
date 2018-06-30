@@ -1,1 +1,1 @@
-export { default } from 'ember-emoji-one/components/category-icon/component';
+export { default } from 'ember-emoji/components/category-icon/component';

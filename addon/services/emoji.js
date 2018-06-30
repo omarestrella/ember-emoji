@@ -1,7 +1,7 @@
 import { get, computed } from '@ember/object';
 import { A } from '@ember/array';
 import Service from '@ember/service';
-import Emoji from 'ember-emoji-one/emoji';
+import Emoji from 'ember-emoji/emoji';
 
 const CACHE = {};
 

@@ -1,5 +1,5 @@
 {
-  "name": "ember-emoji-one",
+  "name": "ember-emoji",
   "version": "1.0.0-beta.1",
   "description": "An Ember addon providing EmojiOne components & helpers",
   "directories": {
@@ -13,7 +13,7 @@
     "test": "ember test",
     "test:all": "ember try:each"
   },
-  "repository": "https://github.com/omarestrella/ember-emoji-one",
+  "repository": "https://github.com/omarestrella/ember-emoji",
   "engines": {
     "node": ">= 6.10"
   },
