@@ -1,12 +1,7 @@
-import Ember from 'ember';
-import Emoji from 'ember-emoji-one/emojione/emoji';
-
-const {
-    get,
-    computed,
-    A,
-    Service
-} = Ember;
+import { get, computed } from '@ember/object';
+import { A } from '@ember/array';
+import Service from '@ember/service';
+import Emoji from 'ember-emoji-one/emoji';
 
 const CACHE = {};
 
@@ -43,6 +38,7 @@ const CATEGORY_ICONS = {
 
 export default Service.extend({
     __emoji: Emoji,
+    __cache: CACHE,
 
     categories: computed(function () {
         const categories = [];
@@ -69,17 +65,23 @@ export default Service.extend({
             return cached;
         }
 
-        CACHE[category] = [];
-
-        for (let key of Object.keys(this.__emoji)) {
-            if (this.__emoji.hasOwnProperty(key)) {
-                const emoji = this.__emoji[key];
-                if (emoji.category === category) {
-                    CACHE[category].push(emoji.shortname);
+        const emojis = Object.keys(this.__emoji).reduce((acc, key) => {
+            const emoji = this.__emoji[key];
+            if (emoji.category === category) {
+                const isDiverse = !!emoji.diversity;
+                const isNonGendered = emoji.diversities.length > 0 && !emoji.gender;
+                if (isDiverse || isNonGendered) {
+                    return acc;
                 }
-            }
-        }
 
-        return A(CACHE[category]);
+                return acc.concat(emoji.shortname);
+            }
+
+            return acc;
+        }, []);
+
+        CACHE[category] = A(emojis);
+
+        return CACHE[category];
     }
 });

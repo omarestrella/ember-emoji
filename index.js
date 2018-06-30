@@ -1,56 +1,48 @@
 'use strict';
 
-var path = require('path');
-
-var pkg = require('./package.json');
-var Funnel = require('broccoli-funnel');
-var mergeTrees = require('broccoli-merge-trees');
-var json = require('broccoli-json-module');
-var esTranspiler = require('broccoli-babel-transpiler'); // needed for json export conversion
+const path = require('path');
+const pkg = require('./package.json');
+const json = require('broccoli-json-module');
+const mergeTrees = require('broccoli-merge-trees');
+const funnel = require('broccoli-funnel');
+const esTranspiler = require('broccoli-babel-transpiler');
 
 module.exports = {
     name: 'ember-emoji-one',
 
-    isDevelopingAddon: function () {
+    isDevelopingAddon() {
         return true;
     },
 
-    // treeForAddon: function () {
-    //     var tree = this._super.treeForAddon.apply(this, arguments);
-    //     var emojiTree = new Funnel(this.nodeModulesPath, {
-    //         srcDir: 'emojione',
-    //         destDir: 'emojione',
-    //         files: ['emoji.json']
-    //     });
-    //     return mergeTrees([tree, json(emojiTree)]);
-    // },
+    treeForVendor() {
+        const tree = this._super(...arguments);
 
-    treeForVendor: function () {
-        var tree = this._super.treeForVendor.apply(this, arguments);
-        var emojiTree = new Funnel(this.nodeModulesPath, {
-            srcDir: 'emojione',
-            destDir: 'emojione',
-            include: ['lib/js/**/*']
-        });
-        var jsonTree = new Funnel(this.nodeModulesPath, {
-            srcDir: 'emojione',
-            destDir: 'emojione',
+        const location = path.dirname(require.resolve('emojione/emoji.json'));
+        const jsonFunnel = funnel(location, {
             files: ['emoji.json']
         });
-        jsonTree = esTranspiler(json(jsonTree), {
+        const jsonTree = esTranspiler(json(jsonFunnel), {
             compact: true,
-            modules: 'amd',
             moduleRoot: pkg.name,
+            plugins: [
+                'babel-plugin-transform-es2015-modules-amd'
+            ],
             moduleIds: true
         });
-        return mergeTrees([tree, emojiTree, jsonTree]);
+
+        const trees = [jsonTree];
+        if (tree) {
+            trees.push(tree);
+        }
+
+        return mergeTrees(trees);
     },
 
-    included: function (app, parentAddon) {
-        this.app = (app || parentAddon);
-        this._super.included(this.app);
+    included() {
+        this._super(...arguments);
 
-        app.import('vendor/emojione/emoji.js');
-        app.import('vendor/emojione/lib/js/emojione.js');
+        this.import(require.resolve('emojione'));
+        this.import('vendor/shims/emojione.js');
+        this.import('vendor/emoji.js');
     }
 };
