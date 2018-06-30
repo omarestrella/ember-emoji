@@ -3,6 +3,7 @@
     @category-margin: 4px;
     @padding: 4px;
 
+    position: relative;
     width: 250px;
     height: 320px;
 
@@ -11,7 +12,6 @@
 
     .emoji-category-selector {
         height: @category-height;
-        // margin-bottom: @category-margin;
 
         padding: @padding;
 
@@ -35,5 +35,17 @@
         overflow: auto;
 
         padding: @padding;
+    }
+
+    .emojione-attribution {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 2px;
+
+        font-size: 8px;
+
+        border-radius: 8px;
+        background-color: #fff;
     }
 }

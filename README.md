@@ -1,50 +1,74 @@
-my-addon
+ember-emoji-one
 ==============================================================================
 
-[Short description of the addon.]
+The goal of ember-emoji-one is to provide applications with a complete set of
+components & helpers to include emojis in their project, courtesy of
+(EmojiOne)[https://emojione.com].
+
+Demo: <link>
+
+
+Requirements
+------------
+
+ - Ember.js 2.12+
+ - Node.js 6.10+
+
 
 Installation
-------------------------------------------------------------------------------
+------------
 
+Run the following command:
+
+```bash
+$ ember install ember-emoji-one
 ```
-ember install my-addon
-```
+
+And thats it!
 
 
 Usage
-------------------------------------------------------------------------------
+-----
 
-[Longer description of how to use the addon in apps.]
+### emoji-picker
+
+A component that displays an emoji picker. Emojis are separated into different categories. You can provide an action to handle a user selecting an emoji.
+
+#### Usage
+
+```hbs
+{{emoji-picker selectEmoji=(action "selectEmoji")}}
+```
+
+### emoji-icon
+
+A component to render any emoji from any emoji shortcode. You can provide an actio to handle the user selecting the emoji.
+
+#### Usage
+
+```hbs
+{{emoji-icon emoji=":grinning" selectEmoji=(action "selectEmoji" ":grinning:")
+```
+
+### emoji-parse
+
+A template helper that parses given text with emoji shortcodes (and optional ascii) and returns a string with EmojiOne images substituted in.
+
+#### Usage
+
+```hbs
+{{parse-string "Hello! :grinning:"}}
+```
 
 
-Contributing
-------------------------------------------------------------------------------
+Support
+-------
 
-### Installation
+Encountered a bug or thought of a feature? Please file it! I will do my best to
+triage and support you as I can.
 
-* `git clone <repository-url>`
-* `cd my-addon`
-* `npm install`
-
-### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
-
-### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
 License
-------------------------------------------------------------------------------
+-------
 
 This project is licensed under the [MIT License](LICENSE.md).
