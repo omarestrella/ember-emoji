@@ -1,16 +1,33 @@
-import Ember from 'ember';
+import Helper from '@ember/component/helper';
+import { htmlSafe } from '@ember/string';
+import { assign } from '@ember/polyfills';
+import emojione from 'emojione';
 
-const {
-    Helper,
-    String: Str
-} = Ember;
+const SUPPORTED_OPTIONS = [
+    'greedyMatch',
+    'imageTitleTag',
+    'sprites',
+    'unicodeAlt',
+    'ascii'
+];
+
+const DEFAULTS = SUPPORTED_OPTIONS.reduce((acc, option) =>
+    Object.assign(acc, { [option]: emojione[option] }), {});
 
 export default Helper.extend({
-    compute([input]) {
+    compute([input], options) {
         if (!input) {
             return '';
         }
 
-        return Str.htmlSafe(window.emojione.toImage(input));
+        options = assign({}, DEFAULTS, options);
+
+        SUPPORTED_OPTIONS.forEach(option => {
+            if (options.hasOwnProperty(option)) {
+                emojione[option] = options[option];
+            }
+        });
+
+        return htmlSafe(emojione.toImage(input));
     }
 });

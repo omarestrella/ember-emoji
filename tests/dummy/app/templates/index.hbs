@@ -1,6 +1,15 @@
 <div class="app">
-    {{message}}<br>
-    Current emoji: {{emoji-parse selectedEmoji}}
-</div>
+    <div>
+        {{message}}<br>
+        Current emoji: {{emoji-parse selectedEmoji}}
+        <br>
+        {{emoji-picker selectEmoji=(action "selectEmoji")}}
+    </div>
 
-{{emoji-picker selectEmoji=(action "selectEmoji")}}
+    <div>
+        <p class="typing-results">
+            Typing results: {{emoji-parse value ascii=true}}
+        </p>
+        {{textarea value=value}}
+    </div>
+</div>

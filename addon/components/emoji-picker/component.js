@@ -1,17 +1,13 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
 import layout from './template';
-
-const {
-    inject,
-    Component
-} = Ember;
 
 export default Component.extend({
     layout,
     classNames: ['emoji-picker', 'ember-emoji-one'],
 
-    service: inject.service('emoji'),
+    service: service('emoji'),
 
     activeCategory: null,
     selectEmoji: () => {},

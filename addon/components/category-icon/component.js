@@ -1,19 +1,15 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { assert } from '@ember/debug';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 import layout from './template';
-
-const {
-    assert,
-    inject,
-    computed,
-    Component
-} = Ember;
 
 export default Component.extend({
     layout,
     classNames: ['category-icon', 'emoji-icon-container', 'clickable'],
     classNameBindings: ['_categoryClass', 'isActive'],
 
-    service: inject.service('emoji'),
+    service: service('emoji'),
 
     category: null,
     activeCategory: null,
