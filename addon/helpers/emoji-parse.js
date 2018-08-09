@@ -14,20 +14,22 @@ const SUPPORTED_OPTIONS = [
 const DEFAULTS = SUPPORTED_OPTIONS.reduce((acc, option) =>
     Object.assign(acc, { [option]: emojione[option] }), {});
 
-export default Helper.extend({
-    compute([input], options) {
-        if (!input) {
-            return '';
-        }
-
-        options = assign({}, DEFAULTS, options);
-
-        SUPPORTED_OPTIONS.forEach(option => {
-            if (options.hasOwnProperty(option)) {
-                emojione[option] = options[option];
-            }
-        });
-
-        return htmlSafe(emojione.toImage(input));
+export function emojiParse([input], options) {
+    if (!input) {
+        return '';
     }
+
+    options = assign({}, DEFAULTS, options);
+
+    SUPPORTED_OPTIONS.forEach(option => {
+        if (options.hasOwnProperty(option)) {
+            emojione[option] = options[option];
+        }
+    });
+
+    return htmlSafe(emojione.toImage(input));
+}
+
+export default Helper.extend({
+    compute: emojiParse
 });

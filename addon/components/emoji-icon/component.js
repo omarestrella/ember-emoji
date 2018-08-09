@@ -12,6 +12,6 @@ export default Component.extend({
     selectEmoji: () => {},
 
     click() {
-        this.get('selectEmoji')();
+        this.get('selectEmoji')(this.get('emoji'));
     }
 });

@@ -27,7 +27,7 @@ module('Integration | Component | emoji-picker', function (hooks) {
         await click('.nature-emoji');
         const newEmoji = Array.from(this.element.querySelectorAll('.emoji-picker .emoji-icon'));
 
-        assert.notEqual(firstEmoji.length, newEmoji.length, 'Quanity of emoji differs');
+        assert.notEqual(firstEmoji.length, newEmoji.length, 'Quantity of emoji differs');
         assert.notDeepEqual(firstEmoji.map(extractEmojiFromIcon),
             newEmoji.map(extractEmojiFromIcon), 'Emojis are not the same');
     });
