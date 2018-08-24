@@ -60,6 +60,13 @@ A template helper that parses given text with emoji shortcodes (and optional asc
 {{emoji-parse "Hello! :grinning:"}}
 ```
 
+You can also import the helper and use it inside of your Javascript:
+
+```javascript
+import { emojiParse } from 'ember-emoji/helpers/emoji-parse';
+
+let str = emojiParse(["content"]);
+```
 
 Support
 -------
