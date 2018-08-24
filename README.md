@@ -12,7 +12,17 @@ Requirements
 ------------
 
  - Ember.js 2.12+
- - Node.js 6.10+
+ - Node.js 6.12+
+
+
+Browser Support
+---------------
+
+ - Firefox 58+
+ - Safari (current)
+ - Chrome 66+
+ - Edge 40+
+ - IE11
 
 
 Installation

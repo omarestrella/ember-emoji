@@ -40,6 +40,16 @@ export default Service.extend({
     __emoji: Emoji,
     __cache: CACHE,
 
+    __emojiMap: null,
+    __emojiNames: null,
+
+    init() {
+        this._super(...arguments);
+
+        this.__emojiMap = {};
+        this.__emojiNames = [];
+    },
+
     categories: computed(function () {
         const categories = [];
         for (let key of Object.keys(this.__emoji)) {
@@ -73,6 +83,9 @@ export default Service.extend({
                 if (isDiverse || isNonGendered) {
                     return acc;
                 }
+
+                this.__emojiMap[emoji.shortname] = emoji;
+                this.__emojiNames.push(emoji.shortname);
 
                 return acc.concat(emoji.shortname);
             }

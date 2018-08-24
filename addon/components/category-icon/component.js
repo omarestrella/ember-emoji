@@ -20,7 +20,7 @@ export default Component.extend({
     },
 
     click() {
-        this.sendAction('action');
+        this.get('action')();
     },
 
     emoji: computed('category', function () {
