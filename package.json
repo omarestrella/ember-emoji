@@ -1,6 +1,6 @@
 {
   "name": "ember-emoji",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Ember addon providing EmojiOne components & helpers",
   "directories": {
     "doc": "doc",
