@@ -6,16 +6,17 @@ const json = require('broccoli-json-module');
 const mergeTrees = require('broccoli-merge-trees');
 const funnel = require('broccoli-funnel');
 const esTranspiler = require('broccoli-babel-transpiler');
+const compileLess = require('broccoli-less-single');
 
 module.exports = {
     name: 'ember-emoji',
 
     isDevelopingAddon() {
-        return true;
+        return process.env.EMOJI_DEV_MODE;
     },
 
-    treeForVendor() {
-        const tree = this._super(...arguments);
+    treeForVendor(tree) {
+        this._super(...arguments);
 
         const location = path.dirname(require.resolve('emojione/emoji.json'));
         const jsonFunnel = funnel(location, {
