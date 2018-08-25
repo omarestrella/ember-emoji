@@ -49,6 +49,7 @@
     "ember-addon"
   ],
   "dependencies": {
+    "at.js": "^1.5.4",
     "broccoli-babel-transpiler": "^6.4.3",
     "broccoli-funnel": "^2.0.1",
     "broccoli-json-module": "^1.0.0",
@@ -56,7 +57,8 @@
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-less": "^1.5.4",
-    "emojione": "^3.1.6"
+    "emojione": "^3.1.6",
+    "jquery.caret": "^0.3.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

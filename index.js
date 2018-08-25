@@ -6,7 +6,6 @@ const json = require('broccoli-json-module');
 const mergeTrees = require('broccoli-merge-trees');
 const funnel = require('broccoli-funnel');
 const esTranspiler = require('broccoli-babel-transpiler');
-const compileLess = require('broccoli-less-single');
 
 module.exports = {
     name: 'ember-emoji',
@@ -39,11 +38,19 @@ module.exports = {
         return mergeTrees(trees);
     },
 
-    included() {
+    included(app) {
         this._super(...arguments);
+
+        const options = app.options['ember-emoji'];
 
         this.import(require.resolve('emojione'));
         this.import('vendor/shims/emojione.js');
         this.import('vendor/emoji.js');
+
+        if (options && options.autocomplete) {
+            this.import('node_modules/jquery.caret/dist/jquery.caret.js');
+            this.import('node_modules/at.js/dist/js/jquery.atwho.js');
+            this.import('node_modules/at.js/dist/css/jquery.atwho.css');
+        }
     }
 };

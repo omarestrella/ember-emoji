@@ -11,7 +11,7 @@ Demo: <link>
 Requirements
 ------------
 
- - Ember.js 2.12+
+ - Ember.js 2.15+
  - Node.js 6.12+
 
 

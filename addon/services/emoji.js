@@ -85,7 +85,7 @@ export default Service.extend({
                 }
 
                 this.__emojiMap[emoji.shortname] = emoji;
-                this.__emojiNames.push(emoji.shortname);
+                this.__emojiNames.push(emoji.shortname.split(':')[1]);
 
                 return acc.concat(emoji.shortname);
             }

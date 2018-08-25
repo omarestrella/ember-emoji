@@ -1,38 +1,39 @@
+import $ from 'jquery';
 import Ember from 'ember';
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import { bind } from '@ember/runloop';
 import { computed } from '@ember/object';
+import { emojiParse } from 'ember-emoji/helpers/emoji-parse';
 
 const SUPPORTED_TAGS = ['input', 'textarea'];
 
 export default Component.extend({
     classNames: ['ember-emoji', 'emoji-autocomplete'],
+    classNameBindings: ['searchingEmoji::hidden'],
     attributeBindings: ['style'],
 
     emoji: inject(),
 
+    enabled: true,
+
+    value: null,
     target: null,
-    position: null,
 
-    _elem: null,
-    _rect: null,
-    _clone: null,
+    init() {
+        this._super(...arguments);
 
-    style: computed('position', function () {
-        const position = this.get('position');
-        if (!position) {
-            return '';
+        if (!$.fn.atwho) {
+            this.enabled = false;
         }
-
-        return `
-            top: ${position.top}px;
-            left: ${position.left}px;
-        `;
-    }),
+    },
 
     didInsertElement() {
         this._super(...arguments);
+
+        if (!this.enabled) {
+            Ember.Logger.warn('Please enable autocomplete in your EmberApp options before using this component.');
+            return;
+        }
 
         this._elem = this.findTarget();
         if (!this._elem) {
@@ -40,35 +41,18 @@ export default Component.extend({
             return;
         }
 
-        this._rect = this._elem.getBoundingClientRect();
-
-        this.attachHandlers();
-    },
-
-    updateContent(initialize = false) {
-        let end = this._elem.selectionEnd;
-        if (initialize === true) {
-            end = this._elem.value.length;
-        }
-        const text = this._elem.value.substring(0, end);
-
-        let span = this._clone.firstChild;
-        if (!span) {
-            span = document.createElement('span');
-            this._clone.appendChild(span);
-        }
-        span.textContent = text;
-
-        const top = this._elem.scrollTop + this._rect.top;
-        const left = span.offsetWidth +
-            this._elem.scrollLeft +
-            this._rect.left;
-
-        console.log({ top, left });
-
-        this.set('position', {
-            top,
-            left
+        $(this._elem).atwho({
+            at: ':',
+            alias: 'ember-emoji-autocomplete',
+            data: this.get('emoji.__emojiNames'),
+            displayTpl: (option) => {
+                const shortcode = `:${option.name}:`;
+                return `<li>
+                    ${emojiParse([shortcode])}
+                    <span>\${name}</span>
+                </li>`
+            },
+            insertTpl: ':${name}:'
         });
     },
 
@@ -88,49 +72,5 @@ export default Component.extend({
         if (nextSibling && SUPPORTED_TAGS.includes(nextSibling.tagName.toLowerCase())) {
             return nextSibling;
         }
-    },
-
-    applyStyle(target) {
-        const computed = window.getComputedStyle(this._elem);
-        const properties = Array.from(computed);
-        properties.forEach(prop => {
-            target.style[prop] = computed.getPropertyValue(prop);
-        });
-    },
-
-    setupClone() {
-        this._clone = document.createElement('div');
-        this.applyStyle(this._clone);
-        this._clone.style.position = 'absolute';
-        this._clone.style.visibility = 'hidden';
-
-        document.body.appendChild(this._clone);
-    },
-
-    destroyClone() {
-        this._clone.remove();
-        this._clone = null;
-    },
-
-    attachHandlers() {
-        const keydown = bind(this, () => {
-            this.updateContent();
-        });
-
-        const focus = bind(this, () => {
-            this._elem.addEventListener('keydown', keydown);
-            this._elem.addEventListener('blur', blur);
-
-            this.setupClone();
-            this.updateContent(true);
-        });
-
-        const blur = bind(this, () => {
-            this.destroyClone();
-            this._elem.removeEventListener('keydown', keydown);
-            this._elem.removeEventListener('blur', blur);
-        });
-
-        this._elem.addEventListener('focus', focus);
     }
 });
