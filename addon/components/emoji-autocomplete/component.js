@@ -2,17 +2,34 @@ import Ember from 'ember';
 import Component from '@ember/component';
 import { inject } from '@ember/service';
 import { bind } from '@ember/runloop';
+import { computed } from '@ember/object';
 
 const SUPPORTED_TAGS = ['input', 'textarea'];
 
 export default Component.extend({
+    classNames: ['ember-emoji', 'emoji-autocomplete'],
+    attributeBindings: ['style'],
+
     emoji: inject(),
 
     target: null,
+    position: null,
 
     _elem: null,
     _rect: null,
     _clone: null,
+
+    style: computed('position', function () {
+        const position = this.get('position');
+        if (!position) {
+            return '';
+        }
+
+        return `
+            top: ${position.top}px;
+            left: ${position.left}px;
+        `;
+    }),
 
     didInsertElement() {
         this._super(...arguments);
@@ -48,6 +65,11 @@ export default Component.extend({
             this._rect.left;
 
         console.log({ top, left });
+
+        this.set('position', {
+            top,
+            left
+        });
     },
 
     findTarget() {
@@ -80,6 +102,7 @@ export default Component.extend({
         this._clone = document.createElement('div');
         this.applyStyle(this._clone);
         this._clone.style.position = 'absolute';
+        this._clone.style.visibility = 'hidden';
 
         document.body.appendChild(this._clone);
     },
@@ -90,12 +113,12 @@ export default Component.extend({
     },
 
     attachHandlers() {
-        const input = bind(this, () => {
+        const keydown = bind(this, () => {
             this.updateContent();
         });
 
         const focus = bind(this, () => {
-            this._elem.addEventListener('input', input);
+            this._elem.addEventListener('keydown', keydown);
             this._elem.addEventListener('blur', blur);
 
             this.setupClone();
@@ -104,7 +127,7 @@ export default Component.extend({
 
         const blur = bind(this, () => {
             this.destroyClone();
-            this._elem.removeEventListener('input', input);
+            this._elem.removeEventListener('keydown', keydown);
             this._elem.removeEventListener('blur', blur);
         });
 
