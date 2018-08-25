@@ -2,7 +2,6 @@ import $ from 'jquery';
 import Ember from 'ember';
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import { computed } from '@ember/object';
 import { emojiParse } from 'ember-emoji/helpers/emoji-parse';
 
 const SUPPORTED_TAGS = ['input', 'textarea'];
@@ -54,6 +53,11 @@ export default Component.extend({
             },
             insertTpl: ':${name}:'
         });
+    },
+
+    willDestroyElement() {
+        this._super(...arguments);
+        $(this._elem).atwho('destroy');
     },
 
     findTarget() {
