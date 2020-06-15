@@ -11,8 +11,18 @@ Demo: <link>
 Requirements
 ------------
 
- - Ember.js 2.12+
- - Node.js 6.10+
+ - Ember.js 2.15+
+ - Node.js 6.12+
+
+
+Browser Support
+---------------
+
+ - Firefox 58+
+ - Safari (current)
+ - Chrome 66+
+ - Edge 40+
+ - IE11
 
 
 Installation
@@ -67,6 +77,32 @@ import { emojiParse } from 'ember-emoji/helpers/emoji-parse';
 
 let str = emojiParse(["content"]);
 ```
+
+### emoji-autocomplete
+
+Autocomplete for emojis is opt-in in order to keep the host application payload low autocomplete is powered by [At.js](https://github.com/ichord/At.js). You can enable it in your application settings:
+
+```javascript
+let app = new EmberApp(defaults, {
+    'ember-emoji': {
+        autocomplete: true
+    }
+});
+```
+
+After enabling autocomplete, you can use the `{{emoji-autocomplete}}` component. In order for it to work correctly, you need to have the component sit next to its intended target in the document or pass in a query selector string as the `target` attribute.
+
+```hbs
+<textarea></textarea>
+{{emoji-autocomplete}}
+
+{{! or the target method}}
+<div class="emoji-input-container">
+    <input>
+</div>
+{{emoji-autocomplete target=".emoji-input-container input"}}
+```
+
 
 Support
 -------

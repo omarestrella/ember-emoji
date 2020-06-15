@@ -1,0 +1,41 @@
+.emoji-autocomplete {
+    position: absolute;
+    z-index: 1;
+
+    width: 10px;
+    height: 10px;
+
+    background-color: red;
+
+    &.hidden {
+        display: none;
+    }
+}
+
+#at-view-ember-emoji-autocomplete {
+    li {
+        display: flex;
+        align-items: center;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8rem;
+
+        &.cur {
+            color: #000000;
+            background: #dddddd;
+
+            strong {
+                color: #000000;
+            }
+        }
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+
+        span {
+            margin-left: 8px;
+        }
+    }
+}
