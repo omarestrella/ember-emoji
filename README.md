@@ -79,3 +79,5 @@ License
 -------
 
 This project is licensed under the [MIT License](LICENSE.md).
+
+This project uses EmojiOne v3 which has its own licensing. See [there information regarding licensing here](https://github.com/joypixels/emojione#license-to-use-emojione-images).
